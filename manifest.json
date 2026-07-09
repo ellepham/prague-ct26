@@ -1,0 +1,25 @@
+{
+  "name": "Prague with Mati ♡ Creepy Teepee 2k26",
+  "short_name": "Prague ♡ Mati",
+  "description": "Our little escape — travel, stay, self check-in, line-up, weather & handy links ✧",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#160c2e",
+  "theme_color": "#160c2e",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

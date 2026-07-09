@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1a1030">
+<link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,9 +29,11 @@
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--bg:#160c2e;--bg2:#1f1240;--card:#271650;--card2:#2f1b5e;--pink:#ff9ed8;--pink2:#ff6fc0;--lav:#c8a8ff;--mint:#8ff0d0;--gold:#ffe08a;--txt:#f3e9ff;--muted:#b39ee0}
   html{scroll-behavior:smooth}
-  body{font-family:'Quicksand',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:radial-gradient(120% 90% at 50% -10%,#2b1656 0%,var(--bg) 55%,#0f0722 100%);color:var(--txt);line-height:1.55;padding-bottom:100px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{font-family:'Quicksand',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:radial-gradient(140% 110% at 50% -10%,#2b1656 0%,var(--bg) 55%,#0f0722 100%);background-attachment:fixed;background-size:160% 160%;background-position:50% 0%;animation:bgdrift 40s ease-in-out infinite alternate;color:var(--txt);line-height:1.55;padding-bottom:100px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   body::before{content:"";position:fixed;inset:-40%;z-index:0;pointer-events:none;background:radial-gradient(40% 40% at 20% 30%,rgba(255,110,192,.18),transparent 60%),radial-gradient(45% 45% at 80% 20%,rgba(143,240,208,.15),transparent 60%),radial-gradient(50% 50% at 60% 85%,rgba(200,168,255,.18),transparent 60%);animation:blob 22s ease-in-out infinite alternate;filter:blur(6px)}
   @keyframes blob{0%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(3%,-3%) rotate(8deg)}100%{transform:translate(-3%,3%) rotate(-8deg)}}
+  @keyframes bgdrift{0%{background-position:46% 0%}100%{background-position:54% 8%}}
+  @media (prefers-reduced-motion:reduce){body,body::before,.mascot,.stickers span,h1,.card::before{animation:none!important}}
   .hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
   .hearts b{position:absolute;bottom:-30px;font-size:16px;opacity:0;animation:rise linear infinite}
   @keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.7}100%{transform:translateY(-115vh) rotate(40deg);opacity:0}}
