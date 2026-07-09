@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#1a1030">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -28,7 +28,7 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--bg:#160c2e;--bg2:#1f1240;--card:#271650;--card2:#2f1b5e;--pink:#ff9ed8;--pink2:#ff6fc0;--lav:#c8a8ff;--mint:#8ff0d0;--gold:#ffe08a;--txt:#f3e9ff;--muted:#b39ee0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;background:#0f0722}
   body{font-family:'Quicksand',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:radial-gradient(140% 110% at 50% -10%,#2b1656 0%,var(--bg) 55%,#0f0722 100%);background-attachment:fixed;background-size:160% 160%;background-position:50% 0%;animation:bgdrift 40s ease-in-out infinite alternate;color:var(--txt);font-size:16.5px;line-height:1.6;padding-bottom:106px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   body::before{content:"";position:fixed;inset:-40%;z-index:0;pointer-events:none;background:radial-gradient(40% 40% at 20% 30%,rgba(255,110,192,.18),transparent 60%),radial-gradient(45% 45% at 80% 20%,rgba(143,240,208,.15),transparent 60%),radial-gradient(50% 50% at 60% 85%,rgba(200,168,255,.18),transparent 60%);animation:blob 22s ease-in-out infinite alternate;filter:blur(6px)}
   @keyframes blob{0%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(3%,-3%) rotate(8deg)}100%{transform:translate(-3%,3%) rotate(-8deg)}}
@@ -42,7 +42,7 @@
   .stars span{position:absolute;color:#fff;animation:tw 3s infinite ease-in-out}
   @keyframes tw{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
   .content{position:relative;z-index:1}
-  header{text-align:center;padding:46px 0 26px}
+  header{text-align:center;padding:calc(40px + env(safe-area-inset-top)) 0 26px}
   .eyebrow{font-size:12px;letter-spacing:3px;color:var(--mint);text-transform:uppercase;margin-bottom:14px}
   h1{font-family:'Fredoka','Quicksand',sans-serif;font-size:44px;line-height:1;font-weight:700;letter-spacing:0;background:linear-gradient(120deg,var(--pink),var(--gold) 25%,var(--lav) 50%,var(--mint) 75%,var(--pink));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 14px rgba(255,158,216,.35));animation:shine 7s linear infinite}
   @keyframes shine{to{background-position:250% 0}}
@@ -110,7 +110,7 @@
   @keyframes boing{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
   .cddesc{font-family:'Fredoka',sans-serif;font-size:13px;color:var(--pink);margin-top:18px;letter-spacing:1px}
   .jump-anchor{display:block;height:0;scroll-margin-top:14px}
-  .jumpnav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:120;display:flex;gap:2px;padding:5px;background:rgba(28,16,58,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1.5px solid rgba(200,168,255,.34);border-radius:22px;box-shadow:0 12px 34px rgba(0,0,0,.55);max-width:calc(100% - 14px);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .jumpnav{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:120;display:flex;gap:2px;padding:5px;background:rgba(28,16,58,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1.5px solid rgba(200,168,255,.34);border-radius:22px;box-shadow:0 12px 34px rgba(0,0,0,.55);max-width:calc(100% - 14px);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .jumpnav::-webkit-scrollbar{display:none}
   .jumpnav a{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--muted);font-size:20px;padding:8px 10px;border-radius:16px;transition:transform .12s,background .2s;-webkit-tap-highlight-color:transparent}
   .jumpnav a small{font-size:10px;font-weight:700;letter-spacing:.2px;font-family:'Quicksand',sans-serif;text-transform:lowercase;line-height:1}
