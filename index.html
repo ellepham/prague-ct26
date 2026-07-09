@@ -25,7 +25,8 @@
   .content{position:relative;z-index:1}
   header{text-align:center;padding:46px 0 26px}
   .eyebrow{font-size:12px;letter-spacing:3px;color:var(--mint);text-transform:uppercase;margin-bottom:14px}
-  h1{font-family:'Fredoka','Quicksand',sans-serif;font-size:44px;line-height:1;font-weight:700;letter-spacing:0;background:linear-gradient(120deg,var(--pink),var(--lav) 50%,var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 14px rgba(255,158,216,.35))}
+  h1{font-family:'Fredoka','Quicksand',sans-serif;font-size:44px;line-height:1;font-weight:700;letter-spacing:0;background:linear-gradient(120deg,var(--pink),var(--gold) 25%,var(--lav) 50%,var(--mint) 75%,var(--pink));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 14px rgba(255,158,216,.35));animation:shine 7s linear infinite}
+  @keyframes shine{to{background-position:250% 0}}
   .sub{margin-top:12px;font-size:16px;color:var(--txt);font-weight:600}.sub b{color:var(--pink)}
   .loc{margin-top:6px;font-size:14px;color:var(--muted)}.loc a{color:var(--lav);text-decoration:none;border-bottom:1px dotted var(--lav)}
   .divine{font-size:15px;color:var(--lav);margin-top:16px;letter-spacing:2px}
@@ -35,7 +36,8 @@
   .count .n{font-family:'Fredoka',sans-serif}
   .count .n{font-size:26px;font-weight:800;color:var(--gold);display:block}.count .l{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
   section{margin-top:26px}
-  .card{background:linear-gradient(160deg,var(--card),var(--card2));border:1.5px solid rgba(200,168,255,.22);border-radius:26px;padding:20px;box-shadow:0 12px 34px rgba(30,10,60,.4),inset 0 1px 0 rgba(255,255,255,.06)}
+  .card{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--card),var(--card2));border:1.5px solid rgba(200,168,255,.22);border-radius:26px;padding:22px 20px 20px;box-shadow:0 12px 34px rgba(30,10,60,.4),inset 0 1px 0 rgba(255,255,255,.06)}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--pink),var(--gold),var(--lav),var(--mint),var(--pink));background-size:200% 100%;animation:shine 6s linear infinite}
   .card+.card{margin-top:14px}
   h2{font-family:'Fredoka','Quicksand',sans-serif;font-size:15px;letter-spacing:1px;text-transform:none;color:var(--mint);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-weight:600}
   h2 .emoji{font-size:18px}
@@ -53,7 +55,8 @@
   ol.steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--pink2),var(--lav));color:#2a114a;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
   ol.steps b{color:var(--gold)}ol.steps a{color:var(--pink);text-decoration:none;border-bottom:1px dotted var(--pink)}
   .btns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-  .btn{flex:1 1 46%;text-align:center;text-decoration:none;padding:13px 10px;border-radius:14px;font-weight:800;font-size:14px;-webkit-tap-highlight-color:transparent}
+  .btn{flex:1 1 46%;text-align:center;text-decoration:none;padding:13px 10px;border-radius:18px;font-weight:700;font-family:'Fredoka','Quicksand',sans-serif;font-size:14px;-webkit-tap-highlight-color:transparent;box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .1s,box-shadow .1s}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
   .btn.call{background:linear-gradient(135deg,var(--mint),#63e0b8);color:#0c3a2c}
   .btn.map{background:linear-gradient(135deg,var(--pink),var(--pink2));color:#4a0f36}
   .btn.ghost{background:rgba(200,168,255,.12);color:var(--lav);border:1px solid rgba(200,168,255,.3)}
@@ -84,6 +87,9 @@
   .linklist{display:flex;flex-direction:column;gap:9px}
   .linkrow{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--txt);background:var(--bg2);border:1px solid rgba(200,168,255,.15);border-radius:14px;padding:12px 14px;-webkit-tap-highlight-color:transparent}
   .linkrow:active{transform:scale(.99)}.linkrow .li{font-size:20px}.linkrow .lt{font-weight:700;font-size:14.5px}.linkrow .ls{font-size:12px;color:var(--muted)}.linkrow .arr{margin-left:auto;color:var(--muted)}
+  .mascot{font-size:52px;display:inline-block;animation:boing 2.2s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(255,110,192,.4))}
+  @keyframes boing{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+  .cddesc{font-family:'Fredoka',sans-serif;font-size:13px;color:var(--pink);margin-top:18px;letter-spacing:1px}
   .stickers{display:flex;gap:10px;justify-content:center;margin-top:16px;font-size:22px}
   .stickers span{display:inline-block;animation:wig 3s ease-in-out infinite}
   .stickers span:nth-child(2n){animation-delay:.4s}.stickers span:nth-child(3n){animation-delay:.8s}
@@ -99,11 +105,13 @@
 <div class="content"><div class="wrap">
   <header>
     <div class="eyebrow">✧ our little escape ✧</div>
+    <div class="mascot">🎪</div>
     <h1>Prague<br>with Mati</h1>
     <div class="sub"><b>Elle</b> &amp; <b>Mati</b> · Creepy Teepee 2k26</div>
     <div class="loc">📍 <a href="https://maps.google.com/?q=Štvanice+Island+Prague" target="_blank">Štvanice Island, Prague</a></div>
     <div class="divine">Fri 10 — Sat 11 — Sun 12 July</div>
     <div class="stickers"><span>🎪</span><span>🖤</span><span>🎶</span><span>✨</span><span>🚌</span><span>💃</span></div>
+    <div class="cddesc">✧ till we scream &amp; dream ✧</div>
     <div class="count" id="count">
       <div><span class="n" id="cd">–</span><span class="l">days</span></div>
       <div><span class="n" id="ch">–</span><span class="l">hrs</span></div>
@@ -204,6 +212,6 @@
   <footer>made with <span class="heart">♥</span> for Elle &amp; Mati<br>screaming &amp; dreaming on Štvanice ✧<br><span style="font-size:11px">CREEPY TEEPEE 2k26 · Prague</span></footer>
 </div></div>
 <div id="toast">copied ✓</div>
-<script>const s=document.getElementById('stars');for(let i=0;i<28;i++){const e=document.createElement('span');e.textContent=['✦','✧','⋆','·','✩'][i%5];e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.animationDelay=(Math.random()*3)+'s';e.style.fontSize=(8+Math.random()*10)+'px';s.appendChild(e)}const hc=document.getElementById('hearts');const HE=['♡','🩷','🖤','✧','💜'];for(let j=0;j<14;j++){const b=document.createElement('b');b.textContent=HE[j%HE.length];b.style.left=Math.random()*100+'%';b.style.fontSize=(12+Math.random()*16)+'px';b.style.animationDuration=(9+Math.random()*10)+'s';b.style.animationDelay=(Math.random()*12)+'s';hc.appendChild(b)}const target=new Date('2026-07-10T10:20:00+02:00').getTime();function tick(){let d=target-Date.now();if(d<0)d=0;const dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4);cd.textContent=dd;ch.textContent=hh;cm.textContent=mm}tick();setInterval(tick,30000);const toast=document.getElementById('toast');let tt;function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1400)}function doCopy(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);return new Promise(r=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r()})}document.querySelectorAll('.copy').forEach(el=>{el.addEventListener('click',()=>{const v=el.getAttribute('data-copy');doCopy(v).then(()=>{el.classList.add('done');const ic=el.querySelector('.ico');const o=ic?ic.textContent:'';if(ic)ic.textContent='✓';showToast('copied: '+v);setTimeout(()=>{el.classList.remove('done');if(ic)ic.textContent=o},1400)})})});</script>
+<script>const s=document.getElementById('stars');for(let i=0;i<28;i++){const e=document.createElement('span');e.textContent=['✦','✧','⋆','·','✩'][i%5];e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.animationDelay=(Math.random()*3)+'s';e.style.fontSize=(8+Math.random()*10)+'px';s.appendChild(e)}const hc=document.getElementById('hearts');const HE=['♡','🩷','🖤','✧','💜'];for(let j=0;j<14;j++){const b=document.createElement('b');b.textContent=HE[j%HE.length];b.style.left=Math.random()*100+'%';b.style.fontSize=(12+Math.random()*16)+'px';b.style.animationDuration=(9+Math.random()*10)+'s';b.style.animationDelay=(Math.random()*12)+'s';hc.appendChild(b)}const target=new Date('2026-07-10T10:20:00+02:00').getTime();function tick(){let d=target-Date.now();if(d<0)d=0;const dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4);cd.textContent=dd;ch.textContent=hh;cm.textContent=mm}tick();setInterval(tick,30000);const toast=document.getElementById('toast');let tt;function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1400)}function burst(el){const r=el.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;const em=['♡','🩷','✧','💜','🖤','⋆'];for(let i=0;i<9;i++){const p=document.createElement('span');p.textContent=em[i%em.length];p.style.cssText='position:fixed;left:'+cx+'px;top:'+cy+'px;font-size:'+(12+Math.random()*12)+'px;pointer-events:none;z-index:200;transform:translate(-50%,-50%)';document.body.appendChild(p);const ang=(-90+(Math.random()*90-45))*Math.PI/180,dist=45+Math.random()*55,dx=Math.cos(ang)*dist,dy=Math.sin(ang)*dist;p.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale(.3)',opacity:0}],{duration:850+Math.random()*400,easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=()=>p.remove()}}function doCopy(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);return new Promise(r=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r()})}document.querySelectorAll('.copy').forEach(el=>{el.addEventListener('click',()=>{const v=el.getAttribute('data-copy');doCopy(v).then(()=>{el.classList.add('done');const ic=el.querySelector('.ico');const o=ic?ic.textContent:'';if(ic)ic.textContent='✓';showToast('copied: '+v);burst(el);setTimeout(()=>{el.classList.remove('done');if(ic)ic.textContent=o},1400)})})});</script>
 </body>
 </html>
