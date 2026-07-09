@@ -5,11 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1a1030">
 <title>♡ Prague w/ Mati ♡ Creepy Teepee 2k26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--bg:#160c2e;--bg2:#1f1240;--card:#271650;--card2:#2f1b5e;--pink:#ff9ed8;--pink2:#ff6fc0;--lav:#c8a8ff;--mint:#8ff0d0;--gold:#ffe08a;--txt:#f3e9ff;--muted:#b39ee0}
   html{scroll-behavior:smooth}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:radial-gradient(120% 90% at 50% -10%,#2b1656 0%,var(--bg) 55%,#0f0722 100%);color:var(--txt);line-height:1.55;padding-bottom:60px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{font-family:'Quicksand',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:radial-gradient(120% 90% at 50% -10%,#2b1656 0%,var(--bg) 55%,#0f0722 100%);color:var(--txt);line-height:1.55;padding-bottom:60px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:-40%;z-index:0;pointer-events:none;background:radial-gradient(40% 40% at 20% 30%,rgba(255,110,192,.18),transparent 60%),radial-gradient(45% 45% at 80% 20%,rgba(143,240,208,.15),transparent 60%),radial-gradient(50% 50% at 60% 85%,rgba(200,168,255,.18),transparent 60%);animation:blob 22s ease-in-out infinite alternate;filter:blur(6px)}
+  @keyframes blob{0%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(3%,-3%) rotate(8deg)}100%{transform:translate(-3%,3%) rotate(-8deg)}}
+  .hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .hearts b{position:absolute;bottom:-30px;font-size:16px;opacity:0;animation:rise linear infinite}
+  @keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.7}100%{transform:translateY(-115vh) rotate(40deg);opacity:0}}
   .wrap{max-width:520px;margin:0 auto;padding:0 16px}
   .stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
   .stars span{position:absolute;color:#fff;animation:tw 3s infinite ease-in-out}
@@ -17,17 +25,19 @@
   .content{position:relative;z-index:1}
   header{text-align:center;padding:46px 0 26px}
   .eyebrow{font-size:12px;letter-spacing:3px;color:var(--mint);text-transform:uppercase;margin-bottom:14px}
-  h1{font-size:40px;line-height:1.05;font-weight:800;letter-spacing:-1px;background:linear-gradient(120deg,var(--pink),var(--lav) 50%,var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 14px rgba(255,158,216,.35))}
+  h1{font-family:'Fredoka','Quicksand',sans-serif;font-size:44px;line-height:1;font-weight:700;letter-spacing:0;background:linear-gradient(120deg,var(--pink),var(--lav) 50%,var(--mint));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 14px rgba(255,158,216,.35))}
   .sub{margin-top:12px;font-size:16px;color:var(--txt);font-weight:600}.sub b{color:var(--pink)}
   .loc{margin-top:6px;font-size:14px;color:var(--muted)}.loc a{color:var(--lav);text-decoration:none;border-bottom:1px dotted var(--lav)}
   .divine{font-size:15px;color:var(--lav);margin-top:16px;letter-spacing:2px}
   .count{display:flex;gap:8px;justify-content:center;margin:22px 0 4px}
-  .count div{background:var(--card);border:1px solid rgba(200,168,255,.25);border-radius:16px;padding:12px 4px;min-width:66px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .count div{background:linear-gradient(160deg,var(--card),var(--card2));border:1.5px solid rgba(255,158,216,.3);border-radius:20px;padding:14px 6px;min-width:70px;text-align:center;box-shadow:0 8px 22px rgba(30,10,60,.4);animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+  .count .n{font-family:'Fredoka',sans-serif}
   .count .n{font-size:26px;font-weight:800;color:var(--gold);display:block}.count .l{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
   section{margin-top:26px}
-  .card{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid rgba(200,168,255,.2);border-radius:22px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+  .card{background:linear-gradient(160deg,var(--card),var(--card2));border:1.5px solid rgba(200,168,255,.22);border-radius:26px;padding:20px;box-shadow:0 12px 34px rgba(30,10,60,.4),inset 0 1px 0 rgba(255,255,255,.06)}
   .card+.card{margin-top:14px}
-  h2{font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  h2{font-family:'Fredoka','Quicksand',sans-serif;font-size:15px;letter-spacing:1px;text-transform:none;color:var(--mint);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-weight:600}
   h2 .emoji{font-size:18px}
   .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(200,168,255,.14)}
   .row:last-child{border-bottom:none}.row .k{color:var(--muted);font-size:13px;flex:0 0 auto}.row .v{font-weight:700;text-align:right;font-size:15px}
@@ -64,7 +74,9 @@
   .weather{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
   .wday{flex:0 0 auto;background:var(--bg2);border:1px solid rgba(200,168,255,.15);border-radius:16px;padding:12px 14px;text-align:center;min-width:84px}
   .wday .d{font-size:12px;color:var(--muted)}.wday .ic{font-size:26px;margin:4px 0}.wday .tmp{font-weight:800;font-size:15px}.wday .tmp small{color:var(--muted);font-weight:600}
-  .imgcard img{width:100%;border-radius:14px;display:block;border:1px solid rgba(200,168,255,.2)}
+  .imgcard{background:#fff;padding:10px 10px 34px;border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.4);transform:rotate(-1.5deg);position:relative}
+  .imgcard img{width:100%;border-radius:3px;display:block}
+  .imgcard::after{content:"our home ♡";position:absolute;bottom:9px;left:0;right:0;text-align:center;color:#8a6db5;font-family:'Fredoka',cursive;font-size:14px}
   .cap{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
   details.imgwrap summary{cursor:pointer;color:var(--mint);font-weight:700;font-size:13px;list-style:none;padding:6px 0}
   details.imgwrap summary::-webkit-details-marker{display:none}
@@ -72,13 +84,18 @@
   .linklist{display:flex;flex-direction:column;gap:9px}
   .linkrow{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--txt);background:var(--bg2);border:1px solid rgba(200,168,255,.15);border-radius:14px;padding:12px 14px;-webkit-tap-highlight-color:transparent}
   .linkrow:active{transform:scale(.99)}.linkrow .li{font-size:20px}.linkrow .lt{font-weight:700;font-size:14.5px}.linkrow .ls{font-size:12px;color:var(--muted)}.linkrow .arr{margin-left:auto;color:var(--muted)}
-  footer{text-align:center;margin-top:34px;color:var(--muted);font-size:13px;line-height:1.9}.heart{color:var(--pink2)}
+  .stickers{display:flex;gap:10px;justify-content:center;margin-top:16px;font-size:22px}
+  .stickers span{display:inline-block;animation:wig 3s ease-in-out infinite}
+  .stickers span:nth-child(2n){animation-delay:.4s}.stickers span:nth-child(3n){animation-delay:.8s}
+  @keyframes wig{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-5px) rotate(6deg)}}
+  footer{text-align:center;margin-top:34px;color:var(--muted);font-size:14px;line-height:2;font-family:'Quicksand',sans-serif}.heart{color:var(--pink2)}
   #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(30px);background:linear-gradient(135deg,var(--mint),#63e0b8);color:#0c3a2c;font-weight:800;padding:11px 20px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.35);pointer-events:none}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 <div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
 <div class="content"><div class="wrap">
   <header>
     <div class="eyebrow">✧ our little escape ✧</div>
@@ -86,6 +103,7 @@
     <div class="sub"><b>Elle</b> &amp; <b>Mati</b> · Creepy Teepee 2k26</div>
     <div class="loc">📍 <a href="https://maps.google.com/?q=Štvanice+Island+Prague" target="_blank">Štvanice Island, Prague</a></div>
     <div class="divine">Fri 10 — Sat 11 — Sun 12 July</div>
+    <div class="stickers"><span>🎪</span><span>🖤</span><span>🎶</span><span>✨</span><span>🚌</span><span>💃</span></div>
     <div class="count" id="count">
       <div><span class="n" id="cd">–</span><span class="l">days</span></div>
       <div><span class="n" id="ch">–</span><span class="l">hrs</span></div>
@@ -186,6 +204,6 @@
   <footer>made with <span class="heart">♥</span> for Elle &amp; Mati<br>screaming &amp; dreaming on Štvanice ✧<br><span style="font-size:11px">CREEPY TEEPEE 2k26 · Prague</span></footer>
 </div></div>
 <div id="toast">copied ✓</div>
-<script>const s=document.getElementById('stars');for(let i=0;i<28;i++){const e=document.createElement('span');e.textContent=['✦','✧','⋆','·','✩'][i%5];e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.animationDelay=(Math.random()*3)+'s';e.style.fontSize=(8+Math.random()*10)+'px';s.appendChild(e)}const target=new Date('2026-07-10T10:20:00+02:00').getTime();function tick(){let d=target-Date.now();if(d<0)d=0;const dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4);cd.textContent=dd;ch.textContent=hh;cm.textContent=mm}tick();setInterval(tick,30000);const toast=document.getElementById('toast');let tt;function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1400)}function doCopy(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);return new Promise(r=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r()})}document.querySelectorAll('.copy').forEach(el=>{el.addEventListener('click',()=>{const v=el.getAttribute('data-copy');doCopy(v).then(()=>{el.classList.add('done');const ic=el.querySelector('.ico');const o=ic?ic.textContent:'';if(ic)ic.textContent='✓';showToast('copied: '+v);setTimeout(()=>{el.classList.remove('done');if(ic)ic.textContent=o},1400)})})});</script>
+<script>const s=document.getElementById('stars');for(let i=0;i<28;i++){const e=document.createElement('span');e.textContent=['✦','✧','⋆','·','✩'][i%5];e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.animationDelay=(Math.random()*3)+'s';e.style.fontSize=(8+Math.random()*10)+'px';s.appendChild(e)}const hc=document.getElementById('hearts');const HE=['♡','🩷','🖤','✧','💜'];for(let j=0;j<14;j++){const b=document.createElement('b');b.textContent=HE[j%HE.length];b.style.left=Math.random()*100+'%';b.style.fontSize=(12+Math.random()*16)+'px';b.style.animationDuration=(9+Math.random()*10)+'s';b.style.animationDelay=(Math.random()*12)+'s';hc.appendChild(b)}const target=new Date('2026-07-10T10:20:00+02:00').getTime();function tick(){let d=target-Date.now();if(d<0)d=0;const dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4);cd.textContent=dd;ch.textContent=hh;cm.textContent=mm}tick();setInterval(tick,30000);const toast=document.getElementById('toast');let tt;function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1400)}function doCopy(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);return new Promise(r=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);r()})}document.querySelectorAll('.copy').forEach(el=>{el.addEventListener('click',()=>{const v=el.getAttribute('data-copy');doCopy(v).then(()=>{el.classList.add('done');const ic=el.querySelector('.ico');const o=ic?ic.textContent:'';if(ic)ic.textContent='✓';showToast('copied: '+v);setTimeout(()=>{el.classList.remove('done');if(ic)ic.textContent=o},1400)})})});</script>
 </body>
 </html>
