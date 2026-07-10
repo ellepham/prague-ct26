@@ -1354,20 +1354,10 @@
               July 2026 · Ostrov Štvanice
             </p>
             <div id="tixgate">
-              <div class="tglock">🔒</div>
-              <div class="tgt">Tickets locked</div>
-              <div class="tgs">
-                Enter the passcode to reveal the scannable passes
-              </div>
-              <div class="tgrow">
-                <input
-                  id="tixcode"
-                  type="password"
-                  placeholder="passcode"
-                  autocomplete="off"
-                /><button type="button" id="tixbtn">unlock</button>
-              </div>
-              <div id="tixerr"></div>
+              <div class="tglock">🎟️</div>
+              <div class="tgt">Tickets hidden</div>
+              <div class="tgs">Tap to show the scannable passes</div>
+              <div class="tgrow"><button type="button" id="tixreveal">👀 reveal tickets</button></div>
             </div>
             <div class="tix">
               <div class="tixlabel">
@@ -2852,7 +2842,7 @@
             </div>
             <div class="note">
               Tap the <b>both</b> tag to set who packs it (both → Elle → Mati).
-              Ticks save on your own phone 💾
+              Syncs live between you &amp; Mati ⚡ delete with the ✕
             </div>
           </div>
         </section>
@@ -3083,242 +3073,96 @@
       document.querySelectorAll(".jump-anchor").forEach((a) => io.observe(a));
       (function () {
         var KEY = "ct26pack";
-        var st = JSON.parse(localStorage.getItem(KEY) || "{}");
-        st.checked = st.checked || {};
-        st.who = st.who || {};
-        st.custom = st.custom || [];
-        st.deleted = st.deleted || [];
-        var custom = document.getElementById("pkcustom");
+        var DB = "https://prague-ct26-default-rtdb.firebaseio.com/packing.json";
         var whoLbl = ["both", "Elle", "Mati"];
-        function save() {
-          localStorage.setItem(KEY, JSON.stringify(st));
-        }
-        function updateCount() {
-          var rows = Array.prototype.filter.call(
-            document.querySelectorAll(".pk"),
-            function (r) {
-              return r.offsetParent !== null || r.style.display !== "none";
-            },
-          );
-          var b = rows.filter(function (r) {
-            return r.querySelector("input").checked;
-          }).length;
-          var el = document.getElementById("pkcount");
-          if (el) el.textContent = b + " / " + rows.length + " packed";
-        }
-        function addDel(row, name, isCustom) {
-          if (row.querySelector(".pkdel")) return;
-          var d = document.createElement("button");
-          d.type = "button";
-          d.className = "pkdel";
-          d.title = "remove";
-          d.textContent = "✕";
-          d.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (isCustom) {
-              st.custom = st.custom.filter(function (x) {
-                return x !== name;
-              });
-            } else {
-              if (st.deleted.indexOf(name) < 0) st.deleted.push(name);
-            }
-            delete st.checked[name];
-            delete st.who[name];
-            save();
-            row.remove();
-            updateCount();
+        function norm(s){ s=s||{}; s.checked=s.checked||{}; s.who=s.who||{}; s.custom=s.custom||[]; s.deleted=s.deleted||[]; return s; }
+        var state = norm(JSON.parse(localStorage.getItem(KEY) || "{}"));
+        var custom = document.getElementById("pkcustom");
+        function setWho(row,w){ var wb=row.querySelector(".who"); if(wb){ wb.setAttribute("data-who",w); wb.textContent=whoLbl[w]; } }
+        function ensureDel(row,name,isCustom){
+          if(row.querySelector(".pkdel")) return;
+          var dd=document.createElement("button"); dd.type="button"; dd.className="pkdel"; dd.title="remove"; dd.textContent="✕";
+          dd.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation();
+            if(isCustom){ state.custom=state.custom.filter(function(x){return x!==name;}); }
+            else { if(state.deleted.indexOf(name)<0) state.deleted.push(name); }
+            delete state.checked[name]; delete state.who[name]; push(); applyState();
           });
-          row.appendChild(d);
+          row.appendChild(dd);
         }
-        function wire(row) {
-          var cb = row.querySelector("input");
-          var wb = row.querySelector(".who");
-          var k = cb.getAttribute("data-k");
-          cb.checked = !!st.checked[k];
-          var w = st.who[k] || 0;
-          wb.setAttribute("data-who", w);
-          wb.textContent = whoLbl[w];
-          cb.addEventListener("change", function () {
-            if (cb.checked) st.checked[k] = true;
-            else delete st.checked[k];
-            save();
-            updateCount();
-          });
-          wb.addEventListener("click", function (e) {
-            e.preventDefault();
-            var nw = (+wb.getAttribute("data-who") + 1) % 3;
-            wb.setAttribute("data-who", nw);
-            wb.textContent = whoLbl[nw];
-            if (nw === 0) delete st.who[k];
-            else st.who[k] = nw;
-            save();
-          });
+        function wireCheckWho(row,name){
+          var cb=row.querySelector("input"); var wb=row.querySelector(".who");
+          cb.addEventListener("change", function(){ if(cb.checked) state.checked[name]=true; else delete state.checked[name]; push(); updateCount(); });
+          if(wb) wb.addEventListener("click", function(e){ e.preventDefault(); var nw=(((state.who[name]||0)+1)%3); if(nw===0) delete state.who[name]; else state.who[name]=nw; setWho(row,nw); push(); });
         }
-        Array.prototype.forEach.call(
-          document.querySelectorAll("#pklist .pk"),
-          function (row) {
-            var k = row.querySelector("input").getAttribute("data-k");
-            if (st.deleted.indexOf(k) >= 0) {
-              row.remove();
-              return;
-            }
-            wire(row);
-            addDel(row, k, false);
-          },
-        );
-        function addCustom(name) {
-          var l = document.createElement("label");
-          l.className = "pk";
-          l.innerHTML =
-            '<input type="checkbox" data-k="' +
-            name.replace(/"/g, "&quot;") +
-            '"><span class="pkbox">✓</span><span class="pkl">' +
-            name.replace(/</g, "&lt;") +
-            '</span><button type="button" class="who" data-k="' +
-            name.replace(/"/g, "&quot;") +
-            '" data-who="0">both</button>';
-          custom.appendChild(l);
-          wire(l);
-          addDel(l, name, true);
+        // init default rows once
+        Array.prototype.forEach.call(document.querySelectorAll("#pklist > .pk"), function(row){
+          var name=row.querySelector("input").getAttribute("data-k");
+          wireCheckWho(row,name); ensureDel(row,name,false);
+        });
+        function addCustomRow(name){
+          var l=document.createElement("label"); l.className="pk"; l.setAttribute("data-name",name);
+          l.innerHTML='<input type="checkbox"><span class="pkbox">✓</span><span class="pkl">'+name.replace(/</g,"&lt;")+'</span><button type="button" class="who" data-who="0">both</button>';
+          custom.appendChild(l); wireCheckWho(l,name); ensureDel(l,name,true);
+        }
+        function updateCount(){
+          var rows=Array.prototype.filter.call(document.querySelectorAll(".pk"), function(r){ return r.style.display!=="none"; });
+          var b=rows.filter(function(r){ return r.querySelector("input").checked; }).length;
+          var el=document.getElementById("pkcount"); if(el) el.textContent=b+" / "+rows.length+" packed";
+        }
+        function applyState(){
+          Array.prototype.forEach.call(document.querySelectorAll("#pklist > .pk"), function(row){
+            var k=row.querySelector("input").getAttribute("data-k");
+            row.style.display = state.deleted.indexOf(k)>=0 ? "none" : "";
+            row.querySelector("input").checked=!!state.checked[k]; setWho(row,state.who[k]||0);
+          });
+          var have={}; Array.prototype.forEach.call(custom.querySelectorAll(".pk"), function(r){ have[r.getAttribute("data-name")]=r; });
+          Object.keys(have).forEach(function(n){ if(state.custom.indexOf(n)<0) have[n].remove(); });
+          state.custom.forEach(function(n){ if(!have[n]) addCustomRow(n); });
+          Array.prototype.forEach.call(custom.querySelectorAll(".pk"), function(row){
+            var k=row.getAttribute("data-name"); row.querySelector("input").checked=!!state.checked[k]; setWho(row,state.who[k]||0);
+          });
           updateCount();
         }
-        st.custom.forEach(function (n) {
-          addCustom(n);
-        });
-        var inp = document.getElementById("pkinput");
-        function doAdd() {
-          var v = (inp.value || "").trim();
-          if (!v) return;
-          if (st.custom.indexOf(v) < 0) {
-            st.custom.push(v);
-            save();
-            addCustom(v);
+        var pushT;
+        function push(){
+          localStorage.setItem(KEY, JSON.stringify(state));
+          clearTimeout(pushT);
+          pushT=setTimeout(function(){ fetch(DB,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(state)}).catch(function(){}); }, 250);
+        }
+        applyState();
+        // add-item
+        var inp=document.getElementById("pkinput");
+        function doAdd(){ var v=(inp.value||"").trim(); if(!v) return; if(state.custom.indexOf(v)<0){ state.custom.push(v); push(); applyState(); } inp.value=""; inp.focus(); }
+        document.getElementById("pkaddbtn").addEventListener("click",doAdd);
+        inp.addEventListener("keydown", function(e){ if(e.key==="Enter") doAdd(); });
+        document.getElementById("pkreset").addEventListener("click", function(){ if(confirm("Clear all ticks & tags for both of you?")){ state.checked={}; state.who={}; push(); applyState(); } });
+        // ---- live sync via Firebase ----
+        var firstSync=true;
+        function remote(data){
+          var incoming=norm(data||{});
+          if(firstSync){
+            firstSync=false;
+            var localHas=(state.custom.length||state.deleted.length||Object.keys(state.checked).length||Object.keys(state.who).length);
+            var remoteHas=(incoming.custom.length||incoming.deleted.length||Object.keys(incoming.checked).length||Object.keys(incoming.who).length);
+            if(!remoteHas && localHas){ push(); return; } // seed remote from local
           }
-          inp.value = "";
-          inp.focus();
+          state=incoming; localStorage.setItem(KEY,JSON.stringify(state)); applyState();
         }
-        document.getElementById("pkaddbtn").addEventListener("click", doAdd);
-        inp.addEventListener("keydown", function (e) {
-          if (e.key === "Enter") doAdd();
-        });
-        document
-          .getElementById("pkreset")
-          .addEventListener("click", function () {
-            if (confirm("Clear all ticks & tags?")) {
-              st.checked = {};
-              st.who = {};
-              save();
-              document.querySelectorAll(".pk input").forEach(function (c) {
-                c.checked = false;
-              });
-              document.querySelectorAll(".who").forEach(function (w) {
-                w.setAttribute("data-who", 0);
-                w.textContent = "both";
-              });
-              updateCount();
-            }
-          });
-        var foot = document.querySelector(".pkfoot");
-        if (foot) {
-          var share = document.createElement("button");
-          share.type = "button";
-          share.className = "pkshare";
-          share.textContent = "📤 share list";
-          share.addEventListener("click", function () {
-            var payload = btoa(
-              unescape(
-                encodeURIComponent(
-                  JSON.stringify({
-                    checked: st.checked,
-                    who: st.who,
-                    custom: st.custom,
-                    deleted: st.deleted,
-                  }),
-                ),
-              ),
-            );
-            var url = location.origin + location.pathname + "#pack=" + payload;
-            (navigator.clipboard && navigator.clipboard.writeText
-              ? navigator.clipboard.writeText(url)
-              : Promise.reject()
-            ).then(
-              function () {
-                if (window.showToast) showToast("list link copied 📤");
-              },
-              function () {
-                prompt("Copy this link to send Mati:", url);
-              },
-            );
-          });
-          foot.insertBefore(share, foot.firstChild);
-        }
-        updateCount();
-        if (location.hash.indexOf("#pack=") === 0) {
-          try {
-            var data = JSON.parse(
-              decodeURIComponent(escape(atob(location.hash.slice(6)))),
-            );
-            if (
-              confirm(
-                "Load the shared packing list? This replaces your current one.",
-              )
-            ) {
-              st.checked = data.checked || {};
-              st.who = data.who || {};
-              st.custom = data.custom || [];
-              st.deleted = data.deleted || [];
-              save();
-              location.replace(location.pathname);
-            } else {
-              history.replaceState(null, "", location.pathname);
-            }
-          } catch (e) {}
-        }
+        try{
+          var es=new EventSource(DB);
+          function onEv(e){ try{ var m=JSON.parse(e.data); if(m && typeof m.data!=="undefined" && (m.path==="/"||m.path==="")){ remote(m.data); } else if(m && m.path && m.path!=="/"){ // nested change -> just refetch
+              fetch(DB).then(function(r){return r.json();}).then(remote).catch(function(){}); } }catch(_){} }
+          es.addEventListener("put",onEv); es.addEventListener("patch",onEv);
+          es.onerror=function(){ /* keep localStorage; will retry automatically */ };
+        }catch(_){ fetch(DB).then(function(r){return r.json();}).then(remote).catch(function(){}); }
       })();
 
       (function () {
-        var card = document.getElementById("tixcard");
-        if (!card) return;
-        var HASH =
-          "fbc49aedf663dd90011febd8e67e9d69fc1f926e729d374bea06c95cf1ffb134";
-        function sha(s) {
-          return crypto.subtle
-            .digest("SHA-256", new TextEncoder().encode(s))
-            .then(function (b) {
-              return Array.prototype.map
-                .call(new Uint8Array(b), function (x) {
-                  return ("0" + x.toString(16)).slice(-2);
-                })
-                .join("");
-            });
-        }
-        function unlock() {
-          card.classList.remove("locked");
-        }
-        if (localStorage.getItem("tixok") === "1") unlock();
-        else card.classList.add("locked");
-        var btn = document.getElementById("tixbtn"),
-          inp = document.getElementById("tixcode"),
-          err = document.getElementById("tixerr");
-        function attempt() {
-          sha((inp.value || "").trim().toLowerCase()).then(function (h) {
-            if (h === HASH) {
-              localStorage.setItem("tixok", "1");
-              unlock();
-              if (window.showToast) showToast("unlocked 🎟️");
-            } else {
-              err.textContent = "nope, try again 🙈";
-              inp.value = "";
-            }
-          });
-        }
-        if (btn) {
-          btn.addEventListener("click", attempt);
-          inp.addEventListener("keydown", function (e) {
-            if (e.key === "Enter") attempt();
-          });
-        }
+        var card = document.getElementById("tixcard"); if(!card) return;
+        function unlock(){ card.classList.remove("locked"); }
+        if(localStorage.getItem("tixok")==="1") unlock(); else card.classList.add("locked");
+        var btn=document.getElementById("tixreveal");
+        if(btn) btn.addEventListener("click", function(){ localStorage.setItem("tixok","1"); unlock(); if(window.showToast) showToast("tickets shown 🎟️"); });
       })();
       (function () {
         var SECS = [
